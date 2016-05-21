@@ -4,7 +4,7 @@ class CreateHouses < ActiveRecord::Migration
       t.integer :number
       t.string :street
       t.string :street_type
-      t.integer :zip
+      t.integer :zip_code
       t.string :unit
       t.string :owner_first_name
       t.string :owner_last_name
