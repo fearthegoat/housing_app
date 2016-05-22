@@ -15,10 +15,12 @@ task sales_fetcher: :environment do
   form['inpStreet'] = 'Fort'
 
   form['inpSuffix1'] = 'DR'
+  form['selPageSize'] = '100'
   page = form.submit
+  #form.fields.each { |f| puts f.name }
 
-  page.search('.SearchResults').each do |tr|
-    puts tr
+  page.search('.SearchResults td div').each do |tr|
+    puts tr.content
   end
 
 #SEARCH HOW TO NAVIGATE THROUGH CSS AND TABLES
