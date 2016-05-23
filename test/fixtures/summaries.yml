@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  last_sale: 2016-05-22
+  map_number: MyString
+  owner: MyString
+  street_number: 1
+  street: MyString
+  street_type: MyString
+
+two:
+  last_sale: 2016-05-22
+  map_number: MyString
+  owner: MyString
+  street_number: 1
+  street: MyString
+  street_type: MyString
