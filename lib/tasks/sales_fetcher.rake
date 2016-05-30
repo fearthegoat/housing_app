@@ -49,7 +49,7 @@ task sales_fetcher: :environment do
       looping(current_number, form) if value == 500
     end
   end
-  1..9.to_a.each do |number|
+  (1..9).to_a.each do |number|
     looping(number, form)
   end
 end
