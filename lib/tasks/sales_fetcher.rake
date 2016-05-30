@@ -46,7 +46,7 @@ task sales_fetcher: :environment do
     end
   end
 
-  (2..9).to_a.each do |number|
+  (1..9).to_a.each do |number|
     looping(number, form)
   end
 
