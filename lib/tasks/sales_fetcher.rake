@@ -1,6 +1,6 @@
 task sales_fetcher: :environment do
   mechanize = Mechanize.new
-#  max_number = 10
+
   page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/main/home.aspx')
   puts page.uri
 
@@ -10,8 +10,11 @@ task sales_fetcher: :environment do
 
   puts page.uri
   form = page.forms.first
-  S = ['ALY','AV','AVE','BLVD','BV','CIR','CL','CMNS','CT','CTR','CV','DR','GRN','GRV','HTS','HWY','KNLS','LA','LN','LNDG','LOOP','LP','PARK','PASS','PATH','PIKE','PK','PKWY','PL','PLZ','PW','RD','RDG','ROAD','ROW','RUN','SQ','ST','TE','TER','TPKE','TR','TRCE','TRL','VW','WALK','WAY','WY','XING']
+
+  #Not currently used
+  STREET_SUFFIX_LIST = ['ALY','AV','AVE','BLVD','BV','CIR','CL','CMNS','CT','CTR','CV','DR','GRN','GRV','HTS','HWY','KNLS','LA','LN','LNDG','LOOP','LP','PARK','PASS','PATH','PIKE','PK','PKWY','PL','PLZ','PW','RD','RDG','ROAD','ROW','RUN','SQ','ST','TE','TER','TPKE','TR','TRCE','TRL','VW','WALK','WAY','WY','XING']
   @Starttime = Time.now
+
   def submit_form(number, form)
   form['inpStreet'] = ""
   form['inpSuffix1'] = ''
@@ -34,14 +37,7 @@ task sales_fetcher: :environment do
     end
     page.search('.SearchResults').size
   end
-  # (1..50000).to_a.each do |number|
-  #   return if number > max_number
-  #   value = submit_form(number, form)
-  #   max_number = "#{number}9".to_i if value == 500
-  #   sleep(0.1)
-  #   puts max_number
-  #   puts "Search for #{number} completed"
-  # end
+
   def looping(number, form)
     (0..9).to_a.each do |num|
       current_number = "#{number}#{num}".to_i
@@ -49,8 +45,10 @@ task sales_fetcher: :environment do
       looping(current_number, form) if value == 500
     end
   end
-  (1..9).to_a.each do |number|
+
+  (2..9).to_a.each do |number|
     looping(number, form)
   end
+
 end
 
