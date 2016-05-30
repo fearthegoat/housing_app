@@ -1,6 +1,6 @@
 task sales_fetcher: :environment do
   mechanize = Mechanize.new
-  max_number = 10
+#  max_number = 10
   page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/main/home.aspx')
   puts page.uri
 
@@ -30,18 +30,27 @@ task sales_fetcher: :environment do
         else @last_sale = entry.content
       end
     end
-      Summary.create(last_sale: @last_sale, map_number: @map_number,owner: @owner, street: @street, street_number: @street_number)
+      Trial.create(last_sale: @last_sale, map_number: @map_number,owner: @owner, street: @street, street_number: @street_number)
     end
     page.search('.SearchResults').size
   end
-  (1..50000).to_a.each do |number|
-    return if number > max_number
-    value = submit_form(number, form)
-    max_number = "#{number}9".to_i if value == 500
-    sleep(0.1)
-    puts max_number
-    puts "Search for #{number} completed"
+  # (1..50000).to_a.each do |number|
+  #   return if number > max_number
+  #   value = submit_form(number, form)
+  #   max_number = "#{number}9".to_i if value == 500
+  #   sleep(0.1)
+  #   puts max_number
+  #   puts "Search for #{number} completed"
+  # end
+  def looping(number, form)
+    (0..9).to_a.each do |num|
+      current_number = "#{number}#{num}".to_i
+      value = submit_form(current_number, form)
+      looping(current_number, form) if value == 500
+    end
+  end
+  1..9.to_a.each do |number|
+    looping(number, form)
   end
 end
-
 
