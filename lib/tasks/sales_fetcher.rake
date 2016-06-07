@@ -14,7 +14,6 @@ task sales_fetcher: :environment do
   #Not currently used
   STREET_SUFFIX_LIST = ['ALY','AV','AVE','BLVD','BV','CIR','CL','CMNS','CT','CTR','CV','DR','GRN','GRV','HTS','HWY','KNLS','LA','LN','LNDG','LOOP','LP','PARK','PASS','PATH','PIKE','PK','PKWY','PL','PLZ','PW','RD','RDG','ROAD','ROW','RUN','SQ','ST','TE','TER','TPKE','TR','TRCE','TRL','VW','WALK','WAY','WY','XING']
   @Starttime = Time.now
-
   def submit_form(number, form)
   form['inpStreet'] = ""
   form['inpSuffix1'] = ''
@@ -29,7 +28,7 @@ task sales_fetcher: :environment do
         elsif index == 2 then
         @street = entry.content.gsub(/^((\d[a-zA-Z])|[^a-zA-Z])*/, '')
         matches = entry.content.match(/^(?<number>\S*)\s+(?<name>.*)\s+(?<type>.*)$/)
-        @street_number = matches[:number]
+        @street_number = matches[:number] rescue nil
         else @last_sale = entry.content
       end
     end
