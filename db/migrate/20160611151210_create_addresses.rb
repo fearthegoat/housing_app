@@ -3,9 +3,9 @@ class CreateAddresses < ActiveRecord::Migration
     create_table :addresses do |t|
       t.integer :street_number
       t.string :street
+      t.string :unit
       t.integer :zip_code
       t.string :state
-      t.date :information_date
 
       t.timestamps null: false
     end
