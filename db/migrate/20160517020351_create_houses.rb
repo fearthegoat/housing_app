@@ -23,5 +23,6 @@ class CreateHouses < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_foreign_key :houses, :map_number, name: :map_number
   end
 end
