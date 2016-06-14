@@ -7,7 +7,7 @@ class CreatePastaddresses < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :pastaddresses, :owner
-    add_foreign_key :pastaddresses, :address
+    add_foreign_key :pastaddresses, :owners
+    add_foreign_key :pastaddresses, :addresses
   end
 end

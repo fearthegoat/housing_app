@@ -6,7 +6,7 @@ class CreatePastsales < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :pastsales, :owner
-    add_foreign_key :pastsales, :sale
+    add_foreign_key :pastsales, :owners
+    add_foreign_key :pastsales, :sales
   end
 end
