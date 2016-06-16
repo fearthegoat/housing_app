@@ -5,7 +5,7 @@ class CreateAssessments < ActiveRecord::Migration
       t.integer :land
       t.integer :building
       t.integer :assessed_total
-
+      t.references :house, index: true
       t.timestamps null: false
     end
   end
