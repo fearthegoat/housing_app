@@ -6,11 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# House.destroy_all
-# Owner.destroy_all
-# Pastaddress.destroy_all
-# Pastowner.destroy_all
-# Address.destroy_all
+House.destroy_all
+Owner.destroy_all
+Pastaddress.destroy_all
+Pastowner.destroy_all
+Address.destroy_all
 
 kevin = House.new
 kevin.map_number = 111111
