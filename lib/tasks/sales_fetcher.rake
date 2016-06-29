@@ -1,5 +1,3 @@
-require 'pry'
-
 task sales_fetcher: :environment do
   mechanize = Mechanize.new
 
@@ -27,7 +25,6 @@ task sales_fetcher: :environment do
 
   page.search('.SearchResults').each_with_index do |raw, count|
     raw.search('td div').each_with_index do |entry, index|
-      binding.pry
       if index == 0 then  @map_number = entry.content.gsub(/\s+/, '')
         elsif index == 1 then @owner = entry.content
         elsif index == 2 then

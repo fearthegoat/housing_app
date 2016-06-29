@@ -1,3 +1,5 @@
+require 'pry'
+
 module Scraper
   def self.ffx_url(map_number)
     "http://icare.fairfaxcounty.gov/ffxcare/Datalets/PrintDatalet.aspx?pin=#{map_number}&gsp=PROFILEALL&taxyear=2017&jur=129&ownseq=0&card=1&roll=REAL&State=1&item=1&items=-1&all=all&ranks=Datalet"
@@ -5,7 +7,7 @@ module Scraper
 end
 
 task scraping_site: :environment do
-  require 'pry'
+
   mechanize = Mechanize.new
 
   map_numbers = ["0022020031",
@@ -29,15 +31,31 @@ task scraping_site: :environment do
     page = mechanize.get(Scraper.ffx_url(map_number))
     File.write(File.join(Rails.root, "..", "ffx-records-data" , "#{map_number}.html"), page.body)
   end
-
-
 end
 
-task parsing_files: :environment do
+task :parse_files do
+  # houses = []
+
   Dir.glob("../ffx-records-data/*").each do |html|
-    page = `curl https://www.navyfederal.org/products-services/loans/mortgage/mortgage-rates.php`
-    noko_page = Nokogiri::HTML(File.open("blossom.xml"))
+    noko_page = Nokogiri::HTML(File.open(html))
+
+    # house = {
+    #   sales: []
+    # }
+
+    noko_page.search("div[name=SALES] tr").each_with_index do |row, row_index|
+      row.search("td").each_with_index do |cell, cell_index|
+
+        p [ row_index, cell_index, cell.text ]
+      end
+    end
+
+    # p house
+
+    # houses << house
   end
+
+
 end
 
 
