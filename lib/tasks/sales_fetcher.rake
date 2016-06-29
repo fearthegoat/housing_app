@@ -1,3 +1,5 @@
+require 'pry'
+
 task sales_fetcher: :environment do
   mechanize = Mechanize.new
 
@@ -21,8 +23,11 @@ task sales_fetcher: :environment do
   form['selPageSize'] = '500'
   page = form.submit
   puts("Number of Results for '#{number}': #{page.search('.SearchResults').size}")
+
+
   page.search('.SearchResults').each_with_index do |raw, count|
     raw.search('td div').each_with_index do |entry, index|
+      binding.pry
       if index == 0 then  @map_number = entry.content.gsub(/\s+/, '')
         elsif index == 1 then @owner = entry.content
         elsif index == 2 then

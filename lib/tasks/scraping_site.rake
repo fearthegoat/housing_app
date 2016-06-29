@@ -1,50 +1,43 @@
+module Scraper
+  def self.ffx_url(map_number)
+    "http://icare.fairfaxcounty.gov/ffxcare/Datalets/PrintDatalet.aspx?pin=#{map_number}&gsp=PROFILEALL&taxyear=2017&jur=129&ownseq=0&card=1&roll=REAL&State=1&item=1&items=-1&all=all&ranks=Datalet"
+  end
+end
+
 task scraping_site: :environment do
+  require 'pry'
   mechanize = Mechanize.new
 
-  page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/search/commonsearch.aspx?mode=parid')
-  puts page.uri
+  map_numbers = ["0022020031",
+  "0022020032",
+  "0022030005",
+  "0022030009",
+  "0022030010",
+  "0022030011",
+  "0022030014A",
+  "0022030015A",
+  "0022030016",
+  "002203020001"]
 
-  form = page.forms.first
-  form['inpParid'] = "0401090033"
-  results = form.submit
+  #Summary.all.each do |summary|
+  #  page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/Datalets/PrintDatalet.aspx?pin=#{summary.map_number}&gsp=PROFILEALL&taxyear=2017&jur=129&ownseq=0&card=1&roll=REAL&State=1&item=1&items=-1&all=all&ranks=Datalet')
+  #  File.write(File.join(Rails.root, "..", "ffx-records-data" , "#{map_number}.html"), page.body)
+  #end
 
-  #owner name and current address
-  results.search('#Owner .DataletData').each_with_index do |entry, count|
-    if count == 0
-      entry.content.split(',').each {|owner| puts owner.strip}
-    else
-      puts(entry.content)
-    end
+
+  map_numbers.each do |map_number|
+    page = mechanize.get(Scraper.ffx_url(map_number))
+    File.write(File.join(Rails.root, "..", "ffx-records-data" , "#{map_number}.html"), page.body)
   end
-
-  results.search('#Parcel .DataletData').each_with_index do |entry, count|
-    puts(entry.content)
-  end
-
-#  link1 = page.link_with(text: 'Map Number')
- # puts link1
-
-
-
-#SALES
-page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/datalets/datalet.aspx?mode=sales&sIndex=0&idx=1&LMparent=138')
-
-page.search('.DataletData').each_with_index do |entry, count|
-  puts(entry.content)
-end
-
-#VALUES
-page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/datalets/datalet.aspx?mode=valuesall&sIndex=1&idx=1&LMparent=138')
-
-#STRUCTURE SIZE
-page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/datalets/datalet.aspx?mode=structure_size&sIndex=1&idx=1&LMparent=138')
-
-#RESIDENTIAL
-page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/datalets/datalet.aspx?mode=resall&sIndex=1&idx=1&LMparent=138')
-
-#COMMERCIAL
-page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/datalets/datalet.aspx?mode=com_combined&sIndex=1&idx=1&LMparent=138')
 
 
 end
+
+task parsing_files: :environment do
+  Dir.glob("../ffx-records-data/*").each do |html|
+    page = `curl https://www.navyfederal.org/products-services/loans/mortgage/mortgage-rates.php`
+    noko_page = Nokogiri::HTML(File.open("blossom.xml"))
+  end
+end
+
 
