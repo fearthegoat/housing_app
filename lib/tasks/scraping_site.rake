@@ -21,16 +21,21 @@ task scraping_site: :environment do
   "0022030016",
   "002203020001"]
 
-  #Summary.all.each do |summary|
-  #  page = mechanize.get('http://icare.fairfaxcounty.gov/ffxcare/Datalets/PrintDatalet.aspx?pin=#{summary.map_number}&gsp=PROFILEALL&taxyear=2017&jur=129&ownseq=0&card=1&roll=REAL&State=1&item=1&items=-1&all=all&ranks=Datalet')
+  finished = Dir.glob("../ffx-records-data/*")
+  finished_map_numbers = finished.inject([]) { |results, file_path| results << file_path[/(?<=data\/)(.*)(?=.html)/,1]}
+  total = Summary.all.map(&:map_number)
+  remaining = total - finished_map_numbers
+  remaining.each do |map_number|
+   page = mechanize.get(Scraper.ffx_url(map_number))
+   puts(map_number)
+   File.write(File.join(Rails.root, "..", "ffx-records-data" , "#{map_number}.html"), page.body)
+  end
+
+
+#  map_numbers.each do |map_number|
+ #   page = mechanize.get(Scraper.ffx_url(map_number))
   #  File.write(File.join(Rails.root, "..", "ffx-records-data" , "#{map_number}.html"), page.body)
   #end
-
-
-  map_numbers.each do |map_number|
-    page = mechanize.get(Scraper.ffx_url(map_number))
-    File.write(File.join(Rails.root, "..", "ffx-records-data" , "#{map_number}.html"), page.body)
-  end
 end
 
 task :parse_files do
