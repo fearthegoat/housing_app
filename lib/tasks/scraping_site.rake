@@ -41,26 +41,42 @@ end
 task :parse_files do
   # houses = []
 
-  Dir.glob("../ffx-records-data/*").each do |html|
-    noko_page = Nokogiri::HTML(File.open(html))
+  #OIOIeach do |html|
 
-    # house = {
-    #   sales: []
-    # }
+  html = "../ffx-records-data/0022030011.html"
+  noko_page = Nokogiri::HTML(File.open(html))
 
-    noko_page.search("div[name=SALES] tr").each_with_index do |row, row_index|
-      row.search("td").each_with_index do |cell, cell_index|
+  house = {
+    sales: [],
+    assessments: [],
+    buyer: []
+  }
 
-        p [ row_index, cell_index, cell.text ]
+  noko_page.search("div[name=SALES] tr").each_with_index do |row, row_index|
+    sale = Hash.new
+    row.search("td").each_with_index do |cell, cell_index|
+      p row_index
+      if row_index > 1
+        sale[:date] = cell.text if cell_index == 0
+        sale[:amount] = cell.text if cell_index == 1
+        sale[:seller] = cell.text if cell_index == 2
+        sale[:buyer] = cell.text if cell_index == 3
       end
     end
+    house[:sales] << sale if row_index > 1
+
+   # end
 
     # p house
 
     # houses << house
   end
-
-
+  noko_page.search("div[name=OWNER] tr").each_with_index do |row, row_index|
+    row.search("td").each_with_index do |cell, cell_index|
+      p [row_index, cell_index, cell.text]
+    end
+  end
+  binding.pry
 end
 
 
