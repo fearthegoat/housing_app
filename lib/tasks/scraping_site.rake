@@ -49,7 +49,7 @@ task :parse_files do
   house = {
     sales: [],
     assessments: [],
-    buyer: []
+    owner: []
   }
 
   noko_page.search("div[name=SALES] tr").each_with_index do |row, row_index|
@@ -75,6 +75,25 @@ task :parse_files do
     row.search("td").each_with_index do |cell, cell_index|
       p [row_index, cell_index, cell.text]
     end
+  end
+    noko_page.search("div[name=VALUES_HIST] tr").each_with_index do |row, row_index|
+    assessment = Hash.new
+    row.search("td").each_with_index do |cell, cell_index|
+      if row_index > 1
+        assessment[:year] = cell.text if cell_index == 0
+        assessment[:land_value] = cell.text if cell_index == 1
+        assessment[:building_value] = cell.text if cell_index == 2
+        assessment[:total_value] = cell.text if cell_index == 3
+        assessment[:tax_exempt?] = cell.text if cell_index == 4
+      end
+    end
+    house[:assessments] << assessment if row_index > 1
+
+   # end
+
+    # p house
+
+    # houses << house
   end
   binding.pry
 end
