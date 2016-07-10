@@ -71,11 +71,26 @@ task :parse_files do
 
     # houses << house
   end
+
+  owner = Hash.new
   noko_page.search("div[name=OWNER] tr").each_with_index do |row, row_index|
     row.search("td").each_with_index do |cell, cell_index|
-      p [row_index, cell_index, cell.text]
+      if row_index == 1
+        owner[:name] = cell.text if cell_index == 1
+      end
+      if row_index == 2
+        owner[:address] = cell.text if cell_index == 1
+      end
+      if row_index == 3
+        owner[:book] = cell.text if cell_index == 1
+      end
+      if row_index == 4
+        owner[:page] = cell.text if cell_index == 1
+      end
     end
   end
+  house[:owner] << owner
+
     noko_page.search("div[name=VALUES_HIST] tr").each_with_index do |row, row_index|
     assessment = Hash.new
     row.search("td").each_with_index do |cell, cell_index|
