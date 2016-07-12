@@ -51,27 +51,7 @@ task :parse_files do
     assessments: [],
     owner: []
   }
-
-  noko_page.search("div[name=SALES] tr").each_with_index do |row, row_index|
-    sale = Hash.new
-    row.search("td").each_with_index do |cell, cell_index|
-      p row_index
-      if row_index > 1
-        sale[:date] = cell.text if cell_index == 0
-        sale[:amount] = cell.text if cell_index == 1
-        sale[:seller] = cell.text if cell_index == 2
-        sale[:buyer] = cell.text if cell_index == 3
-      end
-    end
-    house[:sales] << sale if row_index > 1
-
-   # end
-
-    # p house
-
-    # houses << house
-  end
-
+#Gathers the owner
   owner = Hash.new
   noko_page.search("div[name=OWNER] tr").each_with_index do |row, row_index|
     row.search("td").each_with_index do |cell, cell_index|
@@ -90,8 +70,39 @@ task :parse_files do
     end
   end
   house[:owner] << owner
+  if noko_page.at_css("div[name=OWN_ADD] tr")
+    owner2 = Hash.new
+    noko_page.search("div[name=OWN_ADD] tr").each_with_index do |row, row_index|
+      row.search("td").each_with_index do |cell, cell_index|
+        owner2[:name] = cell.text if row_index == 2 && cell_index == 0
+      end
+    end
+    owner2[:address] = owner[:address]
+    owner2[:book] = owner[:book]
+    owner2[:page] = owner[:page]
+    house[:owner] << owner2
+    binding.pry
+  end
 
-    noko_page.search("div[name=VALUES_HIST] tr").each_with_index do |row, row_index|
+  #Gathers the sales
+  noko_page.search("div[name=SALES] tr").each_with_index do |row, row_index|
+    sale = Hash.new
+    row.search("td").each_with_index do |cell, cell_index|
+      p row_index
+      if row_index > 1
+        sale[:date] = cell.text if cell_index == 0
+        sale[:amount] = cell.text if cell_index == 1
+        sale[:seller] = cell.text if cell_index == 2
+        sale[:buyer] = cell.text if cell_index == 3
+      end
+    end
+    house[:sales] << sale if row_index > 1
+  end
+
+
+  binding.pry
+  #Gathers the yearly assessments
+  noko_page.search("div[name=VALUES_HIST] tr").each_with_index do |row, row_index|
     assessment = Hash.new
     row.search("td").each_with_index do |cell, cell_index|
       if row_index > 1
@@ -103,14 +114,37 @@ task :parse_files do
       end
     end
     house[:assessments] << assessment if row_index > 1
-
-   # end
-
-    # p house
-
-    # houses << house
   end
-  binding.pry
+
+  #Gathers the
+  #noko_page.search("div[name=COM_PARCEL] tr").each_with_index do |row, row_index|
+  #  row.search("td").each_with_index do |cell, cell_index|
+  #    p [row_index, cell_index, cell.text]
+  #  end
+  #end
+
+  #Gathers the
+  #noko_page.search("div[name=FULL_LEGAL] tr").each_with_index do |row, row_index|
+  #  row.search("td").each_with_index do |cell, cell_index|
+  #    p [row_index, cell_index, cell.text]
+  #  end
+  #end
+
+  #Gathers the
+  #noko_page.search("div[name=RESIDENTIAL] tr").each_with_index do |row, row_index|
+  #  row.search("td").each_with_index do |cell, cell_index|
+  #    p [row_index, cell_index, cell.text]
+  #  end
+  #end
+
+  #Gathers the
+  #noko_page.search("div[name=STRUCTURE] tr").each_with_index do |row, row_index|
+  #  row.search("td").each_with_index do |cell, cell_index|
+  #    p [row_index, cell_index, cell.text]
+  #  end
+  #end
+
+  #binding.pry
 end
 
 
