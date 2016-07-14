@@ -81,14 +81,12 @@ task :parse_files do
     owner2[:book] = owner[:book]
     owner2[:page] = owner[:page]
     house[:owner] << owner2
-    binding.pry
   end
 
   #Gathers the sales
   noko_page.search("div[name=SALES] tr").each_with_index do |row, row_index|
     sale = Hash.new
     row.search("td").each_with_index do |cell, cell_index|
-      p row_index
       if row_index > 1
         sale[:date] = cell.text if cell_index == 0
         sale[:amount] = cell.text if cell_index == 1
@@ -99,8 +97,6 @@ task :parse_files do
     house[:sales] << sale if row_index > 1
   end
 
-
-  binding.pry
   #Gathers the yearly assessments
   noko_page.search("div[name=VALUES_HIST] tr").each_with_index do |row, row_index|
     assessment = Hash.new
@@ -117,12 +113,24 @@ task :parse_files do
   end
 
   #Gathers the
-  #noko_page.search("div[name=COM_PARCEL] tr").each_with_index do |row, row_index|
-  #  row.search("td").each_with_index do |cell, cell_index|
-  #    p [row_index, cell_index, cell.text]
-  #  end
-  #end
-
+  info = []
+  noko_page.search("div[name=COM_PARCEL] tr").each_with_index do |row, row_index|
+   row.search("td").each_with_index do |cell, cell_index|
+    info << cell.text
+   end
+  end
+  house[:address] = info[2]
+  house[:map_number] = info[4]
+  house[:tax_district] = info[6]
+  house[:tax_district_name] = info[8]
+  house[:land_use_code] = info[10]
+  house[:land_acreage] = info[12]
+  house[:land_sq_ft] = info[14]
+  house[:zoning_description] = info[16]
+  house[:county_historic_district?] = info[24]
+  house[:street_type] = info[30]
+  house[:site_description] = info[32]
+  binding.pry
   #Gathers the
   #noko_page.search("div[name=FULL_LEGAL] tr").each_with_index do |row, row_index|
   #  row.search("td").each_with_index do |cell, cell_index|
