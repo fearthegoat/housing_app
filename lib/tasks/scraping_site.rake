@@ -41,8 +41,6 @@ end
 task :parse_files do
   # houses = []
 
-  #OIOIeach do |html|
-
   html = "../ffx-records-data/0022030011.html"
   noko_page = Nokogiri::HTML(File.open(html))
 
@@ -131,6 +129,11 @@ task :parse_files do
   house[:street_type] = info[30]
   house[:site_description] = info[32]
   binding.pry
+
+  house[:street] = house[:address].gsub(/^((\d[a-zA-Z])|[^a-zA-Z])*/, '')
+  matches = house[:address].match(/^(?<number>\S*)\s+(?<name>.*)\s+(?<type>.*)$/)
+  house[:street_number] = matches[:number] rescue nil
+  house[:street_type] = matches[:type]
   #Gathers the
   #noko_page.search("div[name=FULL_LEGAL] tr").each_with_index do |row, row_index|
   #  row.search("td").each_with_index do |cell, cell_index|
