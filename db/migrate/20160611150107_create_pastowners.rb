@@ -6,7 +6,5 @@ class CreatePastowners < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :pastowners, :owners
-    add_foreign_key :pastowners, :houses
   end
 end

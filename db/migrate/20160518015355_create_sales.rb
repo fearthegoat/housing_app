@@ -5,7 +5,7 @@ class CreateSales < ActiveRecord::Migration
       t.float :amount
       t.string :seller
       t.string :buyer
-
+      t.references :house, index: true
       t.timestamps null: false
     end
   end

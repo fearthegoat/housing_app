@@ -49,7 +49,7 @@ task :parse_files do
     assessments: [],
     owner: []
   }
-#Gathers the owner
+#Gathers the owner(s)
   owner = Hash.new
   noko_page.search("div[name=OWNER] tr").each_with_index do |row, row_index|
     row.search("td").each_with_index do |cell, cell_index|
@@ -110,7 +110,7 @@ task :parse_files do
     house[:assessments] << assessment if row_index > 1
   end
 
-  #Gathers the
+  #Gathers the external house and district data
   info = []
   noko_page.search("div[name=COM_PARCEL] tr").each_with_index do |row, row_index|
    row.search("td").each_with_index do |cell, cell_index|
@@ -128,25 +128,27 @@ task :parse_files do
   house[:county_historic_district?] = info[24]
   house[:street_type] = info[30]
   house[:site_description] = info[32]
-  binding.pry
 
+  #Separates the street number, street and street type.  Could have problems and should update regex
   house[:street] = house[:address].gsub(/^((\d[a-zA-Z])|[^a-zA-Z])*/, '')
   matches = house[:address].match(/^(?<number>\S*)\s+(?<name>.*)\s+(?<type>.*)$/)
   house[:street_number] = matches[:number] rescue nil
   house[:street_type] = matches[:type]
-  #Gathers the
-  #noko_page.search("div[name=FULL_LEGAL] tr").each_with_index do |row, row_index|
-  #  row.search("td").each_with_index do |cell, cell_index|
-  #    p [row_index, cell_index, cell.text]
-  #  end
-  #end
 
-  #Gathers the
-  #noko_page.search("div[name=RESIDENTIAL] tr").each_with_index do |row, row_index|
-  #  row.search("td").each_with_index do |cell, cell_index|
-  #    p [row_index, cell_index, cell.text]
-  #  end
-  #end
+  #Gathers the Legal Description
+  noko_page.search("div[name=FULL_LEGAL] tr").each_with_index do |row, row_index|
+   row.search("td").each_with_index do |cell, cell_index|
+     house[:subdivision] = cell.text if row_index ==1 && cell_index == 1
+     house[:lot_number] = cell.text if row_index == 2 && cell_index == 1
+   end
+  end
+
+  #Gathers the House interior data
+  noko_page.search("div[name=RESIDENTIAL] tr").each_with_index do |row, row_index|
+   row.search("td").each_with_index do |cell, cell_index|
+     p [row_index, cell_index, cell.text]
+   end
+  end
 
   #Gathers the
   #noko_page.search("div[name=STRUCTURE] tr").each_with_index do |row, row_index|
@@ -155,7 +157,10 @@ task :parse_files do
   #  end
   #end
 
-  #binding.pry
+  binding.pry
 end
 
-
+#THINGS TO ASK RUSSELL in order of importance
+#schema
+#maybe do a match of name instead of hard coding the cell and row index numbers
+#regex improvement for separating street number, street and street type.

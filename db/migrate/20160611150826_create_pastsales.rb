@@ -3,10 +3,8 @@ class CreatePastsales < ActiveRecord::Migration
     create_table :pastsales do |t|
       t.references :sale, index: true
       t.references :owner, index: true
-
+      t.string :transaction_side
       t.timestamps null: false
     end
-    add_foreign_key :pastsales, :owners
-    add_foreign_key :pastsales, :sales
   end
 end

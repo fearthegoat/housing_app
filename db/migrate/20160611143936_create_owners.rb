@@ -10,7 +10,6 @@ class CreateOwners < ActiveRecord::Migration
       t.string :unit
       t.integer :zipcode
       t.string :state
-
       t.timestamps null: false
     end
   end

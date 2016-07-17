@@ -1,5 +1,5 @@
 class CreateHouses < ActiveRecord::Migration
-  def change
+  def up
     create_table :houses do |t|
       t.integer :number
       t.string :street
@@ -23,6 +23,11 @@ class CreateHouses < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
     add_foreign_key :houses, :map_number, name: :map_number
+  end
+
+  def drop
+    remove_foreign_key :houses, :map_number, name: :map_number
   end
 end
