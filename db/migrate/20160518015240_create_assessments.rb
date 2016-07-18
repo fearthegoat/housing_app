@@ -1,6 +1,7 @@
 class CreateAssessments < ActiveRecord::Migration
   def change
     create_table :assessments do |t|
+      t.references :house, index: true
       t.integer :year
       t.integer :land
       t.integer :building

@@ -1,10 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  number: 1
-  street: MyString
-  street_type: MyString
-  zip: 1
+cherry_lane:
+  number: 123
+  street: Cherry
+  street_type: Lane
+  zip_code: 20180
   unit: MyString
   owner_first_name: MyString
   owner_last_name: MyString
@@ -25,7 +25,7 @@ two:
   number: 1
   street: MyString
   street_type: MyString
-  zip: 1
+  zip_code: 1
   unit: MyString
   owner_first_name: MyString
   owner_last_name: MyString

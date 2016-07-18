@@ -11,10 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530034214) do
+ActiveRecord::Schema.define(version: 20160613144716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.integer  "street_number"
+    t.string   "street"
+    t.string   "unit"
+    t.integer  "zip_code"
+    t.string   "state"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "assessments", force: :cascade do |t|
+    t.integer  "house_id"
+    t.integer  "year"
+    t.integer  "land"
+    t.integer  "building"
+    t.integer  "assessed_total"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "assessments", ["house_id"], name: "index_assessments_on_house_id", using: :btree
 
   create_table "houses", force: :cascade do |t|
     t.integer  "number"
@@ -40,6 +62,54 @@ ActiveRecord::Schema.define(version: 20150530034214) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "owners", force: :cascade do |t|
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "middle_name"
+    t.integer  "street_number"
+    t.string   "street"
+    t.string   "unit"
+    t.integer  "zipcode"
+    t.string   "state"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "pastaddresses", force: :cascade do |t|
+    t.date     "information_date"
+    t.integer  "address_id"
+    t.integer  "owner_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "pastaddresses", ["address_id"], name: "index_pastaddresses_on_address_id", using: :btree
+  add_index "pastaddresses", ["owner_id"], name: "index_pastaddresses_on_owner_id", using: :btree
+
+  create_table "pastsales", force: :cascade do |t|
+    t.integer  "sale_id"
+    t.integer  "owner_id"
+    t.string   "transaction_side"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "pastsales", ["owner_id"], name: "index_pastsales_on_owner_id", using: :btree
+  add_index "pastsales", ["sale_id"], name: "index_pastsales_on_sale_id", using: :btree
+
+  create_table "sales", force: :cascade do |t|
+    t.date     "date"
+    t.float    "amount"
+    t.string   "seller"
+    t.string   "buyer"
+    t.integer  "house_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "sales", ["house_id"], name: "index_sales_on_house_id", using: :btree
+
   create_table "summaries", force: :cascade do |t|
     t.date     "last_sale"
     t.string   "map_number"
@@ -62,4 +132,6 @@ ActiveRecord::Schema.define(version: 20150530034214) do
     t.datetime "updated_at",    null: false
   end
 
+  add_foreign_key "pastaddresses", "addresses"
+  add_foreign_key "pastaddresses", "owners"
 end

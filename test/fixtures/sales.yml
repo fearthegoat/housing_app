@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+cherry_lane_sale:
   date: 2016-05-17
   amount: 1.5
-  seller: MyString
-  buyer: MyString
+  house: cherry_lane
 
 two:
   date: 2016-05-17
   amount: 1.5
-  seller: MyString
-  buyer: MyString
+  house: cherry_lane

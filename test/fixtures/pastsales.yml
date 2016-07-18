@@ -4,8 +4,15 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+cherry_lane_one_seller:
+  sale: cherry_lane_sale
+  owner: russell
+  transaction_side: 'seller'
+
 # column: value
 #
-two: {}
+cherry_lane_one_buyer:
+  sale: cherry_lane_sale
+  owner: kevin
+  transaction_side: 'buyer'
 #  column: value

@@ -24,10 +24,10 @@ class CreateHouses < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_foreign_key :houses, :map_number, name: :map_number
+    # add_foreign_key :houses, :map_number, name: :map_number
   end
 
   def drop
-    remove_foreign_key :houses, :map_number, name: :map_number
+    # remove_foreign_key :houses, :map_number, name: :map_number
   end
 end

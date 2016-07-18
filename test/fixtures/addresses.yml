@@ -5,11 +5,9 @@ one:
   street: MyString
   zip_code: 1
   state: MyString
-  information_date: 2016-06-11
 
 two:
   street_number: 1
   street: MyString
   zip_code: 1
   state: MyString
-  information_date: 2016-06-11
