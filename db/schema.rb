@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160613144716) do
     t.integer  "land"
     t.integer  "building"
     t.integer  "assessed_total"
+    t.string   "tax_exempt?"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
@@ -101,8 +102,6 @@ ActiveRecord::Schema.define(version: 20160613144716) do
   create_table "sales", force: :cascade do |t|
     t.date     "date"
     t.float    "amount"
-    t.string   "seller"
-    t.string   "buyer"
     t.integer  "house_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

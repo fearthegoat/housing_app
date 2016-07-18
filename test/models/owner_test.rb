@@ -10,7 +10,7 @@ class OwnerTest < ActiveSupport::TestCase
 
     assert cherry_lane
 
-    assert_equal [kevin, russell], cherry_lane.owners
+    assert_equal [russell, kevin], cherry_lane.owners
   end
 
   def test_house_has_current_owner

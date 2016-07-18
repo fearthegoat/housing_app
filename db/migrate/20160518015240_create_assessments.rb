@@ -6,7 +6,9 @@ class CreateAssessments < ActiveRecord::Migration
       t.integer :land
       t.integer :building
       t.integer :assessed_total
+      t.string :tax_exempt?
       t.timestamps null: false
+      t.string
     end
   end
 end

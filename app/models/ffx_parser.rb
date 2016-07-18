@@ -112,7 +112,7 @@ class FfxParser
     #Gathers the House interior data
     noko_page.search("div[name=RESIDENTIAL] tr").each_with_index do |row, row_index|
      row.search("td").each_with_index do |cell, cell_index|
-       p [row_index, cell_index, cell.text]
+       #p [row_index, cell_index, cell.text]
      end
     end
 
@@ -123,6 +123,7 @@ class FfxParser
     #  end
     #end
 
-    House.create(house)
+    #House.create(house)
+    house
   end
 end

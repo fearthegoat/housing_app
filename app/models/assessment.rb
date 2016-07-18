@@ -12,4 +12,5 @@ class Assessment < ActiveRecord::Base
   def total_value=(string)
   end
 
+
 end
