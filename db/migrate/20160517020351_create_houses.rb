@@ -1,13 +1,12 @@
 class CreateHouses < ActiveRecord::Migration
   def up
     create_table :houses do |t|
+      t.string :address
       t.integer :number
       t.string :street
       t.string :street_type
       t.integer :zip_code
       t.string :unit
-      t.string :owner_first_name
-      t.string :owner_last_name
       t.string :map_number
       t.integer :land_area
       t.string :land_use

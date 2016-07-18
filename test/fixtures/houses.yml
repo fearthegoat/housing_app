@@ -6,8 +6,6 @@ cherry_lane:
   street_type: Lane
   zip_code: 20180
   unit: MyString
-  owner_first_name: MyString
-  owner_last_name: MyString
   map_number: MyString
   land_area: 1
   land_use: MyString
@@ -27,8 +25,6 @@ two:
   street_type: MyString
   zip_code: 1
   unit: MyString
-  owner_first_name: MyString
-  owner_last_name: MyString
   map_number: MyString
   land_area: 1
   land_use: MyString
