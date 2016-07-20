@@ -7,7 +7,6 @@ class FfxParserTest < ActiveSupport::TestCase
     results = FfxParser.new(File.open(html)).parse
 
     assert_equal Hash, results.class
-
   end
 
 end

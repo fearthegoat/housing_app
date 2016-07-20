@@ -5,19 +5,19 @@ cherry_lane:
   street: Cherry
   street_type: Lane
   zip_code: 20180
-  unit: MyString
-  map_number: MyString
-  land_area: 1
-  land_use: MyString
+  unit: B
+  map_number: 018295185A
+  land_area: 15200
+  land_use: Residential
   book: 1
   page: 1
-  sq_ft: 1
-  year_built: 1
+  sq_ft: 2015
+  year_built: 1970
   style: MyString
-  bedrooms: 1
-  full_baths: 1
-  half_baths: 1
-  fireplaces: 1
+  bedrooms: 4
+  full_baths: 2
+  half_baths: 3
+  fireplaces: 0
 
 two:
   number: 1
