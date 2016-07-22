@@ -1,6 +1,6 @@
 class Owner < ActiveRecord::Base
   # Addresses
-  has_many :pastaddresses, -> {order('date DESC')}, dependent: :destroy
+  has_many :pastaddresses, dependent: :destroy
   has_many :addresses, through: :pastaddresses
 
   # Sales

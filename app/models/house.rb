@@ -1,6 +1,6 @@
 class House < ActiveRecord::Base
   has_many :assessments, dependent: :destroy
-  has_many :sales, -> {order('date DESC')}#change to sold_on
+  has_many :sales, -> {order('sales_date DESC')}#change to sold_on
   has_many :pastsales, through: :sales
   has_many :owners, through: :pastsales
 

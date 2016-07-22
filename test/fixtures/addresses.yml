@@ -6,8 +6,8 @@ main_street:
   zip_code: 77092
   state: TX
 
-park_avenue:
-  street_number: 827
-  street: Park Ave
-  zip_code: 39281
-  state: NY
+# park_avenue:
+#   street_number: 827
+#   street: Park Ave
+#   zip_code: 39281
+#   state: NY

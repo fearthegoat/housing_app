@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 kevin_address_one:
-  information_date: 2016-06-13
+  date_of_information: 2016-06-13
   owner: kevin
   address: main_street
 
-kevin_address_one:
-  information_date: 2016-06-10
-  owner: kevin
-  address: park_avenue
+# kevin_address_one:
+#   date_of_information: 2014-06-10
+#   owner: kevin
+#   address: park_avenue

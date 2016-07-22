@@ -50,7 +50,7 @@ class FfxParser
       sale = Hash.new
       row.search("td").each_with_index do |cell, cell_index|
         if row_index > 1
-          sale[:date] = cell.text if cell_index == 0
+          sale[:sales_date] = cell.text if cell_index == 0
           sale[:amount] = cell.text if cell_index == 1
           sale[:seller] = cell.text if cell_index == 2
           sale[:buyer] = cell.text if cell_index == 3

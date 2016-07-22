@@ -17,13 +17,14 @@ ActiveRecord::Schema.define(version: 20160613144716) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
+    t.string   "entire_address"
     t.integer  "street_number"
     t.string   "street"
     t.string   "unit"
     t.integer  "zip_code"
     t.string   "state"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "assessments", force: :cascade do |t|
@@ -77,11 +78,11 @@ ActiveRecord::Schema.define(version: 20160613144716) do
   end
 
   create_table "pastaddresses", force: :cascade do |t|
-    t.date     "information_date"
+    t.date     "date_of_information"
     t.integer  "address_id"
     t.integer  "owner_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "pastaddresses", ["address_id"], name: "index_pastaddresses_on_address_id", using: :btree
@@ -99,7 +100,7 @@ ActiveRecord::Schema.define(version: 20160613144716) do
   add_index "pastsales", ["sale_id"], name: "index_pastsales_on_sale_id", using: :btree
 
   create_table "sales", force: :cascade do |t|
-    t.date     "date"
+    t.date     "sales_date"
     t.float    "amount"
     t.integer  "house_id"
     t.datetime "created_at", null: false
@@ -130,6 +131,4 @@ ActiveRecord::Schema.define(version: 20160613144716) do
     t.datetime "updated_at",    null: false
   end
 
-  add_foreign_key "pastaddresses", "addresses"
-  add_foreign_key "pastaddresses", "owners"
 end
