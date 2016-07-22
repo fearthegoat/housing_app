@@ -6,9 +6,7 @@ class AddressTest < ActiveSupport::TestCase
     main_street = addresses(:main_street)
     kevin = owners(:kevin)
 
-    assert main_street
-
-    assert_equal [kevin], kevin.address.current_address
+    assert_equal [main_street], kevin.current_address
   end
 
   # test "the truth" do

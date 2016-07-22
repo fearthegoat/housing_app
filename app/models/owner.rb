@@ -9,6 +9,6 @@ class Owner < ActiveRecord::Base
   has_many :houses, through: :sales
 
   def current_address
-    pastaddresses.first.address.entire_address
+    pastaddresses.first.address
   end
 end
