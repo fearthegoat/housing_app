@@ -5,7 +5,7 @@ kevin_address_one:
   owner: kevin
   address: main_street
 
-# kevin_address_one:
-#   date_of_information: 2014-06-10
-#   owner: kevin
-#   address: park_avenue
+kevin_address_two:
+  date_of_information: 2014-06-10
+  owner: kevin
+  address: park_avenue
