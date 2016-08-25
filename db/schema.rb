@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160613144716) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "addresses", force: :cascade do |t|
     t.string   "entire_address"
     t.integer  "street_number"
@@ -38,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160613144716) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "assessments", ["house_id"], name: "index_assessments_on_house_id", using: :btree
+  add_index "assessments", ["house_id"], name: "index_assessments_on_house_id"
 
   create_table "houses", force: :cascade do |t|
     t.string   "address"
@@ -53,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160613144716) do
     t.integer  "book"
     t.integer  "page"
     t.integer  "sq_ft"
+    t.integer  "land_sq_ft"
     t.integer  "year_built"
     t.string   "style"
     t.integer  "bedrooms"
@@ -68,13 +66,8 @@ ActiveRecord::Schema.define(version: 20160613144716) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "middle_name"
-    t.integer  "street_number"
-    t.string   "street"
-    t.string   "unit"
-    t.integer  "zipcode"
-    t.string   "state"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "pastaddresses", force: :cascade do |t|
@@ -85,8 +78,8 @@ ActiveRecord::Schema.define(version: 20160613144716) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "pastaddresses", ["address_id"], name: "index_pastaddresses_on_address_id", using: :btree
-  add_index "pastaddresses", ["owner_id"], name: "index_pastaddresses_on_owner_id", using: :btree
+  add_index "pastaddresses", ["address_id"], name: "index_pastaddresses_on_address_id"
+  add_index "pastaddresses", ["owner_id"], name: "index_pastaddresses_on_owner_id"
 
   create_table "pastsales", force: :cascade do |t|
     t.integer  "sale_id"
@@ -96,8 +89,8 @@ ActiveRecord::Schema.define(version: 20160613144716) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "pastsales", ["owner_id"], name: "index_pastsales_on_owner_id", using: :btree
-  add_index "pastsales", ["sale_id"], name: "index_pastsales_on_sale_id", using: :btree
+  add_index "pastsales", ["owner_id"], name: "index_pastsales_on_owner_id"
+  add_index "pastsales", ["sale_id"], name: "index_pastsales_on_sale_id"
 
   create_table "sales", force: :cascade do |t|
     t.date     "sales_date"
@@ -107,7 +100,7 @@ ActiveRecord::Schema.define(version: 20160613144716) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "sales", ["house_id"], name: "index_sales_on_house_id", using: :btree
+  add_index "sales", ["house_id"], name: "index_sales_on_house_id"
 
   create_table "summaries", force: :cascade do |t|
     t.date     "last_sale"

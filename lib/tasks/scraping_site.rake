@@ -38,14 +38,14 @@ task scraping_site: :environment do
   #end
 end
 
-task :parse_files do
+task :parse_files => :environment do
   # houses = []
 
-  html = "../ffx-records-data/0022030011.html"
+  html = "../ffx-records-data/003406020014.html"
 
   house = FfxParser.new(File.open(html)).parse
 
-  binding.pry
+  #binding.pry
 end
 
 #THINGS TO ASK RUSSELL in order of importance

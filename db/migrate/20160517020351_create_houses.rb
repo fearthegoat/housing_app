@@ -13,6 +13,7 @@ class CreateHouses < ActiveRecord::Migration
       t.integer :book
       t.integer :page
       t.integer :sq_ft
+      t.integer :land_sq_ft
       t.integer :year_built
       t.string :style
       t.integer :bedrooms
